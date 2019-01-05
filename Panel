@@ -1,0 +1,197 @@
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+
+public class Panel extends JButton implements ActionListener{
+
+	private static final long serialVersionUID = 1L;
+
+	public static final int WIDTH = 450, HEIGHT = 500;
+	
+	public boolean end = false;
+	
+	private JButton f1, f2, f3, s1, s2, s3, t1, t2, t3, restart;
+	private JLabel who= new JLabel("");
+	
+	private String queue = "x";
+	
+	public Panel() {
+		setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		setBackground(Color.WHITE);
+		setLayout(null);
+		ButtonPanel();
+	}
+	
+	public void ButtonPanel() {
+		f1 = new JButton("");
+		f2 = new JButton("");
+		f3 = new JButton("");
+		s1 = new JButton("");
+		s2 = new JButton("");
+		s3 = new JButton("");
+		t1 = new JButton("");
+		t2 = new JButton("");
+		t3 = new JButton("");
+		
+		restart = new JButton("Restart");
+		
+		who.setFont(new Font("Tahoma", Font.BOLD, 40));
+		f1.setFont(new Font("Tahoma", Font.BOLD, 80));
+		f2.setFont(new Font("Tahoma", Font.BOLD, 80));
+		f3.setFont(new Font("Tahoma", Font.BOLD, 80));
+		s1.setFont(new Font("Tahoma", Font.BOLD, 80));
+		s2.setFont(new Font("Tahoma", Font.BOLD, 80));
+		s3.setFont(new Font("Tahoma", Font.BOLD, 80));
+		t1.setFont(new Font("Tahoma", Font.BOLD, 80));
+		t2.setFont(new Font("Tahoma", Font.BOLD, 80));
+		t3.setFont(new Font("Tahoma", Font.BOLD, 80));
+		
+		f1.addActionListener(this);
+		f2.addActionListener(this);
+		f3.addActionListener(this);
+		s1.addActionListener(this);
+		s2.addActionListener(this);
+		s3.addActionListener(this);
+		t1.addActionListener(this);
+		t2.addActionListener(this);
+		t3.addActionListener(this);
+		
+		restart.addActionListener(this);
+		
+		add(restart);
+		add(who);
+		add(f1);
+		add(f2);
+		add(f3);
+		add(s1);
+		add(s2);
+		add(s3);
+		add(t1);
+		add(t2);
+		add(t3);
+		
+		who.setBounds(100, 0, 400, 50);
+		restart.setBounds(0, 0, 100, 50);
+		f1.setBounds(0, 50, 150, 150);
+		f2.setBounds(150, 50, 150, 150);
+		f3.setBounds(300, 50, 150, 150);
+		s1.setBounds(0, 200, 150, 150);
+		s2.setBounds(150, 200, 150, 150);
+		s3.setBounds(300, 200, 150, 150);
+		t1.setBounds(0, 350, 150, 150);
+		t2.setBounds(150, 350, 150, 150);
+		t3.setBounds(300, 350, 150, 150);
+	}
+	
+	public void check() {
+		if(queue == "o")
+			who.setText("Ruch x");
+		if(queue == "x")
+			who.setText("Ruch o");
+		if(f1.getText() ==  queue && f2.getText() == queue && f3.getText() == queue || s1.getText() ==  queue && s2.getText() == queue && s3.getText() == queue || t1.getText() ==  queue && t2.getText() == queue && t3.getText() == queue || f1.getText() ==  queue && s2.getText() == queue && t3.getText() == queue || f3.getText() ==  queue && s2.getText() == queue && t1.getText() == queue || f1.getText() ==  queue && s1.getText() == queue && t1.getText() == queue || f2.getText() ==  queue && s2.getText() == queue && t2.getText() == queue || f3.getText() ==  queue && s3.getText() == queue && t3.getText() == queue) {
+			end = true;
+			if(end) {
+				who.setText(queue+" Wygrało!");
+			}
+		}
+
+	}
+	
+	public void change() {
+		if(queue == "x") 
+			queue = "o";
+		else 
+			queue = "x";
+	}
+	
+	public void restart(){
+		f1.setText("");
+		f2.setText("");
+		f3.setText("");
+		s1.setText("");
+		s2.setText("");
+		s3.setText("");
+		t1.setText("");
+		t2.setText("");
+		t3.setText("");
+		who.setText("");
+		end = false;
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Object source = e.getSource();
+		
+		if (source == f1) {
+			if(f1.getText() =="" && end == false) {
+				f1.setText(queue);
+				check();
+				change();
+			}
+		}
+		else if (source == f2 && end == false) {
+			if(f2.getText() =="") {
+				f2.setText(queue);
+				check();
+				change();
+			}
+		}
+		else if (source == f3 && end == false) {
+			if(f3.getText() =="") {
+				f3.setText(queue);
+				check();
+				change();
+			}
+		}
+		else if (source == s1 && end == false) {
+			if(s1.getText() =="") {
+				s1.setText(queue);
+				check();
+				change();
+			}
+		}
+		else if (source == s2 && end == false) {
+			if(s2.getText() =="") {
+				s2.setText(queue);
+				check();
+				change();
+			}
+		}
+		else if (source == s3 && end == false) {
+			if(s3.getText() =="") {
+				s3.setText(queue);
+				check();
+				change();
+			}
+		}
+		else if (source == t1 && end == false) {
+			if(t1.getText() =="") {
+				t1.setText(queue);
+				check();
+				change();
+			}
+		}
+		else if (source == t2 && end == false) {
+			if(t2.getText() =="") {
+				t2.setText(queue);
+				check();
+				change();
+			}
+		}
+		else if (source == t3 && end == false) {
+			if(t3.getText() =="") {
+				t3.setText(queue);
+				check();
+				change();
+			}
+		}
+		else if (source == restart) {
+			restart();
+		}
+	}
+}
