@@ -1,3 +1,4 @@
+package ticTacToe;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -13,10 +14,12 @@ public class Panel extends JButton implements ActionListener{
 
 	public static final int WIDTH = 450, HEIGHT = 500;
 	
-	public boolean end = false;
+	public boolean end = false, move = false;
 	
 	private JButton f1, f2, f3, s1, s2, s3, t1, t2, t3, restart;
 	private JLabel who= new JLabel("");
+	private int p1, p2, p3, p4, p6, p7, p8, p9;
+
 	
 	private String queue = "x";
 	
@@ -25,6 +28,8 @@ public class Panel extends JButton implements ActionListener{
 		setBackground(Color.WHITE);
 		setLayout(null);
 		ButtonPanel();
+		s2.setText(queue);
+		change();
 	}
 	
 	public void ButtonPanel() {
@@ -32,7 +37,7 @@ public class Panel extends JButton implements ActionListener{
 		f2 = new JButton("");
 		f3 = new JButton("");
 		s1 = new JButton("");
-		s2 = new JButton("");
+		s2 = new JButton(queue);
 		s3 = new JButton("");
 		t1 = new JButton("");
 		t2 = new JButton("");
@@ -89,15 +94,19 @@ public class Panel extends JButton implements ActionListener{
 	}
 	
 	public void check() {
-		if(queue == "o")
-			who.setText("Ruch x");
-		if(queue == "x")
+		if(queue == "x") 
 			who.setText("Ruch o");
+		else 
+			who.setText("Ruch x");
 		if(f1.getText() ==  queue && f2.getText() == queue && f3.getText() == queue || s1.getText() ==  queue && s2.getText() == queue && s3.getText() == queue || t1.getText() ==  queue && t2.getText() == queue && t3.getText() == queue || f1.getText() ==  queue && s2.getText() == queue && t3.getText() == queue || f3.getText() ==  queue && s2.getText() == queue && t1.getText() == queue || f1.getText() ==  queue && s1.getText() == queue && t1.getText() == queue || f2.getText() ==  queue && s2.getText() == queue && t2.getText() == queue || f3.getText() ==  queue && s3.getText() == queue && t3.getText() == queue) {
 			end = true;
 			if(end) {
 				who.setText(queue+" Wygrało!");
 			}
+		}
+		if(p1 != 0 && p1 != 0 && p3 != 0 && p4 != 0 && p6 != 0 && p7 != 0 && p8 != 0 && p9 != 0) {
+			who.setText("Remis!");
+			end = true;
 		}
 
 	}
@@ -114,13 +123,177 @@ public class Panel extends JButton implements ActionListener{
 		f2.setText("");
 		f3.setText("");
 		s1.setText("");
-		s2.setText("");
+		s2.setText(queue);
 		s3.setText("");
 		t1.setText("");
 		t2.setText("");
 		t3.setText("");
 		who.setText("");
 		end = false;
+		p1 = 0;
+		p2 = 0;
+		p3 = 0;
+		p4 = 0;
+		p6 = 0;
+		p7 = 0;
+		p8 = 0;
+		p9 = 0;
+		change();
+	}
+	
+	public void bot() {
+		if(p1+p9 == 1 && move == false) {
+			f1.setText(queue);
+			t3.setText(queue);
+			move =true;
+		}
+		else if(p7+p3 == 1 && move == false) {
+			t1.setText(queue);
+			f3.setText(queue);
+			move =true;
+		}
+		else if(p4+p6 == 1 && move == false) {
+			s1.setText(queue);
+			s3.setText(queue);
+			move =true;
+		}
+		else if(p2+p8 == 1 && move == false) {
+			f2.setText(queue);
+			t2.setText(queue);
+			move =true;
+		}
+		else if(p1+p2+p3 == 2 && move == false) {
+			f1.setText(queue);
+			f2.setText(queue);
+			f3.setText(queue);
+			move =true;
+		}
+		else if(p7+p8+p9 == 2 && move == false) {
+			t1.setText(queue);
+			t2.setText(queue);
+			t3.setText(queue);
+			move =true;
+		}
+		else if(p1+p4+p7 == 2 && move == false) {
+			f1.setText(queue);
+			s1.setText(queue);
+			t1.setText(queue);
+			move =true;
+		}
+		else if(p3+p6+p9 == 2 && move == false) {
+			f3.setText(queue);
+			s3.setText(queue);
+			t3.setText(queue);
+			move =true;
+		}
+		else if(p1+p2+p3 == 10 && move == false) {
+			if(p1 == 0) {
+				f1.setText(queue);
+				p1 = 1;
+			}
+			if(p2 == 0) {
+				f2.setText(queue);
+				p2 = 1;
+			}
+
+			if(p3 == 0) {
+				f3.setText(queue);
+				p3 = 1;
+			}
+			move =true;
+		}
+		else if(p7+p8+p9 == 10 && move == false) {
+			if(p7 == 0) {
+				t1.setText(queue);
+				p7 = 1;
+			}
+			if(p8 == 0) {
+				t2.setText(queue);
+				p8 = 1;
+			}
+
+			if(p9 == 0) {
+				t3.setText(queue);
+				p9 = 1;
+			}
+			move =true;
+		}
+		else if(p1+p4+p7 == 10 && move == false) {
+			if(p1 == 0) {
+				f1.setText(queue);
+				p1 = 1;
+			}
+			if(p4 == 0) {
+				s1.setText(queue);
+				p4 = 1;
+			}
+
+			if(p7 == 0) {
+				t1.setText(queue);
+				p7 = 1;
+			}
+			move =true;
+		}
+		else if(p3+p6+p9 == 10 && move == false) {
+			if(p3 == 0) {
+				f3.setText(queue);
+				p3 = 1;
+			}
+			if(p6 == 0) {
+				s3.setText(queue);
+				p6 = 1;
+			}
+
+			if(p9 == 0) {
+				t3.setText(queue);
+				p9 = 1;
+			}
+			move =true;
+		}
+		else if(p1 == 0 && move == false) {
+			f1.setText(queue);
+			p1 = 1;
+			move =true;
+		}
+		else if(p2 == 0 && move == false) {
+			f2.setText(queue);
+			p2 = 1;
+			move =true;
+		}
+		else if(p3 == 0 && move == false) {
+			f3.setText(queue);
+			p3 = 1;
+			move =true;
+		}
+		else if(p4 == 0 && move == false) {
+			s1.setText(queue);
+			p4 = 1;
+			move =true;
+		}
+		else if(p6 == 0 && move == false) {
+			s3.setText(queue);
+			p6 = 1;
+			move =true;
+		}
+		else if(p7 == 0 && move == false) {
+			t1.setText(queue);
+			p7 = 1;
+			move =true;
+		}
+		else if(p8 == 0 && move == false) {
+			t2.setText(queue);
+			p8 = 1;
+			move =true;
+		}
+		else if(p9 == 0 && move == false) {
+			t3.setText(queue);
+			p9 = 1;
+			move =true;
+		}
+		move = false;
+		check();
+		change();
+		
 	}
 	
 	@Override
@@ -130,29 +303,37 @@ public class Panel extends JButton implements ActionListener{
 		if (source == f1) {
 			if(f1.getText() =="" && end == false) {
 				f1.setText(queue);
+				p1 = 5;
 				check();
 				change();
+				bot();
 			}
 		}
 		else if (source == f2 && end == false) {
 			if(f2.getText() =="") {
 				f2.setText(queue);
+				p2 = 5;
 				check();
 				change();
+				bot();
 			}
 		}
 		else if (source == f3 && end == false) {
 			if(f3.getText() =="") {
 				f3.setText(queue);
+				p3 = 5;
 				check();
 				change();
+				bot();
 			}
 		}
 		else if (source == s1 && end == false) {
 			if(s1.getText() =="") {
 				s1.setText(queue);
+				p4 = 5;
 				check();
 				change();
+				bot();
 			}
 		}
 		else if (source == s2 && end == false) {
@@ -160,34 +341,43 @@ public class Panel extends JButton implements ActionListener{
 				s2.setText(queue);
 				check();
 				change();
+				bot();
 			}
 		}
 		else if (source == s3 && end == false) {
 			if(s3.getText() =="") {
 				s3.setText(queue);
+				p6 = 5;
 				check();
 				change();
+				bot();
 			}
 		}
 		else if (source == t1 && end == false) {
 			if(t1.getText() =="") {
 				t1.setText(queue);
+				p7 = 5;
 				check();
 				change();
+				bot();
 			}
 		}
 		else if (source == t2 && end == false) {
 			if(t2.getText() =="") {
 				t2.setText(queue);
+				p8 = 5;
 				check();
 				change();
+				bot();
 			}
 		}
 		else if (source == t3 && end == false) {
 			if(t3.getText() =="") {
 				t3.setText(queue);
+				p9 = 5;
 				check();
 				change();
+				bot();
 			}
 		}
 		else if (source == restart) {
