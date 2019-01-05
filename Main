@@ -1,4 +1,3 @@
-package ticTacToe;
 import javax.swing.JFrame;
 
 public class Main {
